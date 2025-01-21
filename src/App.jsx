@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { TextField, Box, Container, Typography, FormControl, InputLabel, Select, MenuItem, Button, CircularProgress } from '@mui/material';
+import axios from 'axios';
 
 function App() {
   const [emailContent, setEmailContent] = useState('');
@@ -12,7 +13,20 @@ function App() {
   const [error, setError] = useState('');
 
   const handleSubmit = async() => {
-
+    setLoading(true);
+    setError('');
+    try {
+      const response = await axios.post("http://localhost:8080/api/email/generate", {
+        emailContent,
+        tone
+      });
+      setGeneratedReply(typeof response.data === 'string' ? response.data : JSON.stringify(response.data));
+    } catch (error) {
+      setError('Failed to generate email reply. Please try again.');
+      console.error(error);
+    } finally{
+      setLoading(false);
+    }
   };
 
   return (
@@ -72,7 +86,7 @@ function App() {
                 variant='outlined'
                 sx={{ mt:2 }}
                 onClick={() => navigator.clipboard.writeText(generatedReply)}>
-                Copied to Clipboard
+                Copy to Clipboard
               </Button>
           </Box>
         )}
