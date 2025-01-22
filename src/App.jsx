@@ -38,17 +38,17 @@ function App() {
           <TextField 
             fullWidth
             multiline
-            rows={6}
+            rows={10}
             variant='outlined'
-            label="Original Email Content"
+            label="Provide Your Email Content"
             value={emailContent || ''}
             onChange={(e) => setEmailContent(e.target.value)}
             sx={{ mb:2 }}/>
             <FormControl fullWidth sx={{ mb: 2 }}>
-              <InputLabel>Tone (Optional)</InputLabel>
+              <InputLabel>Set Tone for Your Email Reply</InputLabel>
               <Select
                 value={tone || ''}
-                label={"Tone (Optional)"}
+                label={"Set Tone for Your Email Reply"}
                 onChange={(e) => setTone(e.target.value)}>
                   <MenuItem value="">None</MenuItem>
                   <MenuItem value="professional">Professional</MenuItem>
@@ -78,7 +78,7 @@ function App() {
             <TextField 
               fullWidth
               multiline
-              rows={6}
+              rows={10}
               variant='outlined'
               value={generatedReply || ''}
               inputProps={{ readOnly: true }}/>
@@ -86,7 +86,7 @@ function App() {
                 variant='outlined'
                 sx={{ mt:2 }}
                 onClick={() => navigator.clipboard.writeText(generatedReply)}>
-                Copy to Clipboard
+                Copy Reply to Your Clipboard
               </Button>
           </Box>
         )}
